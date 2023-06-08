@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import Button from "../components/Button";
-
+import EmailInput from "../components/EmailInput";
 const text = [
   "This is the button to press",
   "Second one",
@@ -15,13 +15,12 @@ const text = [
 const MyApp = () => {
   const [btn, setBtn] = useState("");
   return (
-    <>
-      <h1>My App</h1>
-      {text.map((text) => {
-        return <Button setBtn={setBtn} text={text} />;
-      })}
+    <div id='emailDom' className='px-4 py-5 bg-slate-200' >
+      <EmailInput title='TO'/>
+      <EmailInput title='CC'/>
+      <EmailInput title='BCC'/>
       <h1 className="px-5 text-4xl text-purple-600">{btn}</h1>
-    </>
+    </div>
   );
 };
 
