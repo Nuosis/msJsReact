@@ -2,7 +2,7 @@
 export default function Button({ text, setBtn }) {
   return (
     <button
-      className="px-2 m-5 text-white bg-purple-800 rounded-xl"
+      className="px-2 m-5 text-white bg-sky-500/50 rounded-xl"
       onClick={() => {
         setBtn(text);
         // FileMaker.PerformScript("Run Script", text);

@@ -1,5 +1,5 @@
 import React,{useState} from "react"
-export default function EmailInput({title,unchosenEmails,setUnchosenEmails}) {
+export default function EmailInput({id,title,unchosenEmails,setUnchosenEmails}) {
   const [value, setValue]=useState('');
   const [chosenEmails, setChosenEmails]=useState([]);
   const [suggestions, setSuggestions]=useState([]);
@@ -8,6 +8,38 @@ export default function EmailInput({title,unchosenEmails,setUnchosenEmails}) {
   const handleChange = (e) => {
     setValue(e.target.value);
     setError(null);
+  };
+  
+  const handleDelete = (index) => {
+    setEmails(chosenEmails.filter((email) => chosenEmails.indexOf(email) !== index));
+  };
+
+  const isInList = (email) => {
+    return chosenEmails.includes(email);
+  };
+
+  const isEmail = (email) => {
+    // eslint-disable-next-line
+    return /[\w\d\.-]+@[\w\d\.-]+\.[\w\d\.-]+/.test(email);
+  };
+
+  const isValid = (email) => {
+    let error = null;
+    if (!isEmail(email)) {
+      error = `${email} is not a valid email address.`;
+    }
+    if (isInList(email)) {
+      error = `${email} has already been added.`;
+    }
+    if (isEmail(email)) {
+      // eslint-disable-next-line
+      return /[\w\d\.-]+@[\w\d\.-]+\.[\w\d\.-]+/.test(email);
+    }
+    if (error) {
+      setError(error);
+      return false;
+    }
+    return true;
   };
 
   const handleKeyDown = (e) => {
@@ -20,8 +52,7 @@ export default function EmailInput({title,unchosenEmails,setUnchosenEmails}) {
     };
     if (e.key === "Enter" || e.key === "Tab" || e.key === ",") {
       if (value && isValid(value)) {
-        setChosenEmails([...emails, value]);
-        //setValue("");
+        setChosenEmails([...chosenEmails, value]);
         e.preventDefault();
       } else if (value && !isValid(value)) {
         setError("Please enter a unique & valid email address");
@@ -63,14 +94,23 @@ export default function EmailInput({title,unchosenEmails,setUnchosenEmails}) {
         >
           {`${title}: `}
         </label>
-        <div className="mt-1
-                        mb-1
-                        w-full
-                        ">
+        <div className="mt-1 mb-1 w-full">
+          {chosenEmails.map((email) => (
+            <div className="tag-item" key={email}>
+              {email}
+              <button
+                type="button"
+                className="button"
+                onClick={() => this.handleDelete(email)}
+              >
+                &times;
+              </button>
+            </div>
+          ))}
           <input
             type="email"
             name="email"
-            id={`${title}: `}
+            id={`${id}: `}
             value={value}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
@@ -94,6 +134,7 @@ export default function EmailInput({title,unchosenEmails,setUnchosenEmails}) {
                         "
             placeholder="+ email"
           />
+          {error && <p className="error">{error}</p>}
           {renderSuggestions()}
         </div>
       </div>
