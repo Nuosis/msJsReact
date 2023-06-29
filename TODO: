@@ -1,0 +1,10 @@
+TODO:
+make chipper self booting
+create method to set suggestedEmails from filemaker
+create method to collect chosenEmails
+wrap text editor into html
+method for creating and recalling signatures
+
+Chipper:
+place chips inside input
+on backspace to value.length=0 reset suggestions to []

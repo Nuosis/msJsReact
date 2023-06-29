@@ -11,6 +11,9 @@ export default function EmailInput({id,title,unchosenEmails,setUnchosenEmails}) 
   };
   
   const handleDelete = (index) => {
+    const thisEmail = chosenEmails.filter((email) => chosenEmails.indexOf(email) === index)
+    console.log(thisEmail);
+    setUnchosenEmails([...unchosenEmails,...thisEmail]);
     setChosenEmails(chosenEmails.filter((email) => chosenEmails.indexOf(email) !== index));
   };
 
@@ -18,10 +21,10 @@ export default function EmailInput({id,title,unchosenEmails,setUnchosenEmails}) 
     return chosenEmails.includes(email);
   };
 
-  // const isEmail = (email) => {
-  //   // eslint-disable-next-line
-  //   return /[\w\d\.-]+@[\w\d\.-]+\.[\w\d\.-]+/.test(email);
-  // };
+  const isEmail = (email) => {
+    // eslint-disable-next-line
+    return /[\w\d\.-]+@[\w\d\.-]+\.[\w\d\.-]+/.test(email);
+  };
 
   const isValid = (email) => {
     let err = null;
@@ -33,7 +36,8 @@ export default function EmailInput({id,title,unchosenEmails,setUnchosenEmails}) 
     }
     if (isEmail(email)) {
       // eslint-disable-next-line
-      return /[\w\d\.-]+@[\w\d\.-]+\.[\w\d\.-]+/.test(email);
+      //return /[\w\d\.-]+@[\w\d\.-]+\.[\w\d\.-]+/.test(email);
+      return email
     }
     if (err) {
       setError(err);
@@ -46,14 +50,16 @@ export default function EmailInput({id,title,unchosenEmails,setUnchosenEmails}) 
     const value = e.target.value;
     if (value.length > 0) {
       const regex = new RegExp(`^${value}`, `i`);
+      //console.log(unchosenEmails);
       const foundEmails = unchosenEmails.sort().filter(v => regex.test(v));
       setSuggestions(foundEmails);
       setValue(value);
-    };
+    }
     if (e.key === "Enter" || e.key === "Tab" || e.key === ",") {
       if (value && isValid(value)) {
         setChosenEmails([...chosenEmails, value]);
-        setValue("")
+        setValue("");
+        setSuggestions([]);
         e.preventDefault();
       } else if (value && !isValid(value)) {
         e.preventDefault();
@@ -95,18 +101,20 @@ export default function EmailInput({id,title,unchosenEmails,setUnchosenEmails}) 
           {`${title}: `}
         </label>
         <div id={`${id}Chips`} className="flex-row w-full mt-1 mb-1">
-          {chosenEmails.map((email) => (
-            <div className="mb-1 bg-white text-sm pl-2 pr-2 rounded-xl border-sky-900 border drop-shadow-md" key={email}>
+          <div className="flex space-x-2">
+            {chosenEmails.map((email,i) => (
+            <div className="mb-1 bg-white text-sm w-auto pl-2 pr-2 rounded-xl border-sky-900 border drop-shadow-md" key={email}>
               {email}
               <button
                 type="button"
                 className="ml-1 mr-1 p-0.5 flex-None w-15"
-                onClick={() => handleDelete(email)}
+                onClick={() => handleDelete(i)}
               >
                 &times;
               </button>
             </div>
           ))}
+          </div>
         <div>
           <input
             type="email"
