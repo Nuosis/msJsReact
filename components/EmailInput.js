@@ -11,32 +11,32 @@ export default function EmailInput({id,title,unchosenEmails,setUnchosenEmails}) 
   };
   
   const handleDelete = (index) => {
-    setEmails(chosenEmails.filter((email) => chosenEmails.indexOf(email) !== index));
+    setChosenEmails(chosenEmails.filter((email) => chosenEmails.indexOf(email) !== index));
   };
 
   const isInList = (email) => {
     return chosenEmails.includes(email);
   };
 
-  const isEmail = (email) => {
-    // eslint-disable-next-line
-    return /[\w\d\.-]+@[\w\d\.-]+\.[\w\d\.-]+/.test(email);
-  };
+  // const isEmail = (email) => {
+  //   // eslint-disable-next-line
+  //   return /[\w\d\.-]+@[\w\d\.-]+\.[\w\d\.-]+/.test(email);
+  // };
 
   const isValid = (email) => {
-    let error = null;
+    let err = null;
     if (!isEmail(email)) {
-      error = `${email} is not a valid email address.`;
+      err = `${email} is not a valid email address.`;
     }
     if (isInList(email)) {
-      error = `${email} has already been added.`;
+      err = `${email} has already been added.`;
     }
     if (isEmail(email)) {
       // eslint-disable-next-line
       return /[\w\d\.-]+@[\w\d\.-]+\.[\w\d\.-]+/.test(email);
     }
-    if (error) {
-      setError(error);
+    if (err) {
+      setError(err);
       return false;
     }
     return true;
@@ -53,9 +53,9 @@ export default function EmailInput({id,title,unchosenEmails,setUnchosenEmails}) 
     if (e.key === "Enter" || e.key === "Tab" || e.key === ",") {
       if (value && isValid(value)) {
         setChosenEmails([...chosenEmails, value]);
+        setValue("")
         e.preventDefault();
       } else if (value && !isValid(value)) {
-        setError("Please enter a unique & valid email address");
         e.preventDefault();
       }
     }
@@ -72,7 +72,7 @@ export default function EmailInput({id,title,unchosenEmails,setUnchosenEmails}) 
           setChosenEmails([...chosenEmails, email]);
           setUnchosenEmails(unchosenEmails.filter((item)=>{return item !== email}))
           setSuggestions([])
-          setValue(chosenEmails);
+          setValue("");
         }
         }
         >{email}</li>)}
@@ -80,7 +80,7 @@ export default function EmailInput({id,title,unchosenEmails,setUnchosenEmails}) 
     )
   };
   return (
-      <div className="flex items-center gap-2">
+      <div className="flex flex-row items-center gap-2">
         <label
           htmlFor="email"
           className=" mt-1
@@ -94,27 +94,29 @@ export default function EmailInput({id,title,unchosenEmails,setUnchosenEmails}) 
         >
           {`${title}: `}
         </label>
-        <div className="mt-1 mb-1 w-full">
+        <div id={`${id}Chips`} className="flex-row w-full mt-1 mb-1">
           {chosenEmails.map((email) => (
-            <div className="tag-item" key={email}>
+            <div className="mb-1 bg-white text-sm pl-2 pr-2 rounded-xl border-sky-900 border drop-shadow-md" key={email}>
               {email}
               <button
                 type="button"
-                className="button"
-                onClick={() => this.handleDelete(email)}
+                className="ml-1 mr-1 p-0.5 flex-None w-15"
+                onClick={() => handleDelete(email)}
               >
                 &times;
               </button>
             </div>
           ))}
+        <div>
           <input
             type="email"
             name="email"
-            id={`${id}: `}
+            id={`${id}Input`}
             value={value}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
-            className=" block w-full 
+            className=" block 
+                        w-full 
                         rounded-md 
                         border-0 
                         px-1.5
@@ -134,6 +136,7 @@ export default function EmailInput({id,title,unchosenEmails,setUnchosenEmails}) 
                         "
             placeholder="+ email"
           />
+        </div>
           {error && <p className="error">{error}</p>}
           {renderSuggestions()}
         </div>
