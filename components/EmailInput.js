@@ -1,7 +1,7 @@
 import React,{useState} from "react"
-export default function EmailInput({id,title,unchosenEmails,setUnchosenEmails}) {
+export default function EmailInput({id,title,unchosenEmails,setUnchosenEmails, chosenEmails, setChosenEmails}) {
   const [value, setValue]=useState('');
-  const [chosenEmails, setChosenEmails]=useState([]);
+  //const [chosenEmails, setChosenEmails]=useState([]);
   const [suggestions, setSuggestions]=useState([]);
   const [error, setError]=useState(null);
 
@@ -54,7 +54,10 @@ export default function EmailInput({id,title,unchosenEmails,setUnchosenEmails}) 
       const foundEmails = unchosenEmails.sort().filter(v => regex.test(v));
       setSuggestions(foundEmails);
       setValue(value);
-    }
+    } else {
+      console.log(value)
+      setSuggestions([]);
+    };
     if (e.key === "Enter" || e.key === "Tab" || e.key === ",") {
       if (value && isValid(value)) {
         setChosenEmails([...chosenEmails, value]);
@@ -69,7 +72,8 @@ export default function EmailInput({id,title,unchosenEmails,setUnchosenEmails}) 
 
   const renderSuggestions = () => {
     if (suggestions.length === 0) {
-      return null;
+      console.log("length=0")
+      return;
     }
     return (
       <ul>
@@ -146,7 +150,7 @@ export default function EmailInput({id,title,unchosenEmails,setUnchosenEmails}) 
           />
         </div>
           {error && <p className="error">{error}</p>}
-          {renderSuggestions()}
+          {suggestions.length>0 && renderSuggestions()}
         </div>
       </div>
     );
