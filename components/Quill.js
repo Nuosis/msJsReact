@@ -12,7 +12,7 @@ function EmailText({emailBody,setEmailBody}) {
             ['clean']
         ],
     };
-    return <ReactQuill style={{ height: "100vh" }} theme="snow" value={emailBody} onChange={setEmailBody} modules={modules}/>;
+    return <ReactQuill style={{ height: "50vh" }} theme="snow" className="mt-1 rounded-md" value={emailBody} onChange={setEmailBody} modules={modules}/>;
 }
 
 export default EmailText

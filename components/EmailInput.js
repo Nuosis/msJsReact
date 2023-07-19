@@ -1,5 +1,5 @@
 import React,{useState} from "react"
-export default function EmailInput({id,title,unchosenEmails,setUnchosenEmails, chosenEmails, setChosenEmails}) {
+export default function EmailInput({id,title,unchosenEmails,setUnchosenEmails,chosenEmails,setChosenEmails}) {
   const [value, setValue]=useState('');
   //const [chosenEmails, setChosenEmails]=useState([]);
   const [suggestions, setSuggestions]=useState([]);
@@ -91,7 +91,7 @@ export default function EmailInput({id,title,unchosenEmails,setUnchosenEmails, c
   };
   return (
       <div className="flex flex-row items-center gap-2">
-        <label
+        {/* <label
           htmlFor="email"
           className=" mt-1
                       mb-1
@@ -103,7 +103,7 @@ export default function EmailInput({id,title,unchosenEmails,setUnchosenEmails, c
                       text-gray-900 "
         >
           {`${title}: `}
-        </label>
+        </label> */}
         <div id={`${id}Chips`} className="flex-row w-full mt-1 mb-1">
           <div className="flex space-x-2">
             {chosenEmails.map((email,i) => (
@@ -146,7 +146,7 @@ export default function EmailInput({id,title,unchosenEmails,setUnchosenEmails, c
                         sm:leading-6
                         bg-inherit 
                         "
-            placeholder="+ email"
+            placeholder={`+ ${title} email`}
           />
         </div>
           {error && <p className="error">{error}</p>}
