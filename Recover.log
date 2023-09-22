@@ -6,3 +6,6 @@
 2023-08-31 11:14:42.247 -0300	jsDev.fmp12	8432	Page 1531 marked free but not in free list
 2023-08-31 11:14:42.247 -0300	jsDev.fmp12	0	Reset maximum block sequence number to 947780
 2023-08-31 11:14:42.247 -0300	jsDev.fmp12	0	*** Completed consistency check, checked 1531 block(s)
+2023-09-22 10:10:49.788 -0300	jsDev.fmp12	0	*** Started consistency check of improperly closed file, total of 1508 block(s) to check
+2023-09-22 10:10:49.792 -0300	jsDev.fmp12	0	Reset maximum block sequence number to 951215
+2023-09-22 10:10:49.792 -0300	jsDev.fmp12	0	*** Completed consistency check, checked 1508 block(s)

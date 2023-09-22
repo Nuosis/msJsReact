@@ -40,6 +40,28 @@ const MyApp = ({emails,initToEmails,initCcEmails,initBccEmails}) => {
     FileMaker.PerformScript("receiveEmailText", JSON.stringify(emailComponents));
   };
 
+  window.clearEmails = (input) => {
+    const data = JSON.parse(input);
+    const type = data.type;
+    let setEmail;
+    switch (type) {
+      case "to":
+        setEmail = setToEmails;
+        break;
+      case "cc":
+        setEmail = setCcEmails;
+        break;
+      case "bcc":
+        setEmail = setBccEmails;
+        break;
+      default:
+        console.log("Hit default case. Unexpected type:", type);
+        return;
+    }
+    setEmail([]);  // Reset to an empty array
+  };
+  
+
   window.addEmail = (json) => {
     const data = JSON.parse(json);
     const type = data.type;
