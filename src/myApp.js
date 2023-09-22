@@ -26,9 +26,9 @@ const MyApp = ({emails,initToEmails,initCcEmails,initBccEmails}) => {
     FileMaker.PerformScript("receiveEmailText",JSON.stringify(emailComponents))
   };*/
   window.getEmailText = function() {
-    const toEmailsObj = toEmails.map(email => ({ Email }));
-    const ccEmailsObj = ccEmails.map(email => ({ Email }));
-    const bccEmailsObj = bccEmails.map(email => ({ Email }));
+    const toEmailsObj = toEmails.map(email => ({ Email: email }));
+    const ccEmailsObj = ccEmails.map(email => ({ Email: email }));
+    const bccEmailsObj = bccEmails.map(email => ({ Email: email }));
   
     const emailComponents = {
       emailBody,
@@ -40,6 +40,8 @@ const MyApp = ({emails,initToEmails,initCcEmails,initBccEmails}) => {
     
     FileMaker.PerformScript("receiveEmailText", JSON.stringify(emailComponents));
   };
+  ``
+  
   
 /*
   // Log the subjectBody state whenever it changes
