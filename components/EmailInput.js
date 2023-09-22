@@ -107,7 +107,7 @@ export default function EmailInput({id,title,unchosenEmails,setUnchosenEmails,ch
           {`${title}: `}
         </label> */}
         <div id={`${id}Chips`} className="flex-row w-full mt-1 mb-1">
-          <div className="flex space-x-2">
+          <div className="flex flex-wrap">
             {chosenEmails.map((email,i) => (
             <div className="mb-1 bg-white text-sm w-auto pl-2 pr-2 rounded-xl border-sky-900 border drop-shadow-md" key={email}>
               {email}
