@@ -14,6 +14,7 @@ const MyApp = ({emails,initToEmails,initCcEmails,initBccEmails}) => {
   const [ccEmails, setCcEmails] = useState(initCcEmails);
   const [bccEmails, setBccEmails] = useState(initBccEmails);
 
+  /*
   window.getEmailText = function() {
     const emailComponents = {
       emailBody,
@@ -23,7 +24,23 @@ const MyApp = ({emails,initToEmails,initCcEmails,initBccEmails}) => {
       bccEmails
     };
     FileMaker.PerformScript("receiveEmailText",JSON.stringify(emailComponents))
+  };*/
+  window.getEmailText = function() {
+    const toEmailsObj = toEmails.map(email => ({ Email }));
+    const ccEmailsObj = ccEmails.map(email => ({ Email }));
+    const bccEmailsObj = bccEmails.map(email => ({ Email }));
+  
+    const emailComponents = {
+      emailBody,
+      subjectBody,
+      toEmails: toEmailsObj,
+      ccEmails: ccEmailsObj,
+      bccEmails: bccEmailsObj
+    };
+    
+    FileMaker.PerformScript("receiveEmailText", JSON.stringify(emailComponents));
   };
+  
 /*
   // Log the subjectBody state whenever it changes
   React.useEffect(() => {
