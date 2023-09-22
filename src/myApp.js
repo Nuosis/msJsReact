@@ -24,12 +24,12 @@ const MyApp = ({emails}) => {
     };
     FileMaker.PerformScript("receiveEmailText",JSON.stringify(emailComponents))
   };
-
+/*
   // Log the subjectBody state whenever it changes
   React.useEffect(() => {
     console.log("State:", { emailBody, subjectBody, toEmails, ccEmails, bccEmails });
   }, [emailBody, subjectBody, toEmails, ccEmails, bccEmails]);
-  
+  */
   return (
     <div id='dom' className='px-4 py-5 bg-white'>
       <div id='emailDom'>
