@@ -2,11 +2,22 @@ import MyApp from "./myApp";
 import React from "react";
 import { createRoot } from "react-dom/client";
 
-// this is where/how filemaker sets the input
 window.loadEmails=(json) => {
-    const emails = JSON.parse(json)
-    //console.log("index", emails)
-    const container = document.getElementById("root");
-    const root = createRoot(container);
-    root.render(<MyApp emails={emails} title="Title Block"/>);
-}
+    try {
+        console.log("Received JSON:", json); // For debugging
+        const data = JSON.parse(json);
+        console.log("parsed JSON:", data);
+        const emails = data.emails || [];
+        const toEmails = data.toEmails || [];
+        const ccEmails = data.ccEmails || [];
+        const bccEmails = data.bccEmails || [];
+        console.log("Emails:", emails, "toEmails:", toEmails, "ccEmails", ccEmails);
+    
+        const container = document.getElementById("root");
+        const root = createRoot(container);
+        root.render(<MyApp emails={emails} initToEmails={toEmails} initCcEmails={ccEmails} initBccEmails={bccEmails}/>);
+    
+    } catch (error) {
+        console.error("Failed to parse JSON:", error);
+    }
+};

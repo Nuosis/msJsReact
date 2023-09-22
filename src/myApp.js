@@ -5,14 +5,14 @@ import EmailInput from "../components/EmailInput";
 import EmailText from "../components/Quill";
 import Subject from "../components/Subject";
 
-const MyApp = ({emails}) => {
-  console.log(emails)
+const MyApp = ({emails,initToEmails,initCcEmails,initBccEmails}) => {
+  console.log('myAppEmailProps', emails, initToEmails, initCcEmails, initBccEmails)
   const [unchosenEmails, setUnchosenEmails] = useState(emails);
   const [emailBody, setEmailBody] = useState("");
   const [subjectBody, setSubjectBody] = useState("");
-  const [toEmails, setToEmails] = useState([]);
-  const [ccEmails, setCcEmails] = useState([]);
-  const [bccEmails, setBccEmails] = useState([]);
+  const [toEmails, setToEmails] = useState(initToEmails);
+  const [ccEmails, setCcEmails] = useState(initCcEmails);
+  const [bccEmails, setBccEmails] = useState(initBccEmails);
 
   window.getEmailText = function() {
     const emailComponents = {
