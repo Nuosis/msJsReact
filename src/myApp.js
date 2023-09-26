@@ -1,18 +1,22 @@
 import React, { useState } from "react";
+import ReactQuill, { Quill } from 'react-quill';
 
 //import Button from "../components/Button";
 import EmailInput from "../components/EmailInput";
 import EmailText from "../components/Quill";
 import Subject from "../components/Subject";
 
-const MyApp = ({emails,initToEmails,initCcEmails,initBccEmails}) => {
+const MyApp = ({emails,initToEmails,initCcEmails,initBccEmails,initEmailHTML}) => {
   //console.log('myAppEmailProps', emails, initToEmails, initCcEmails, initBccEmails)
   const [unchosenEmails, setUnchosenEmails] = useState(emails);
-  const [emailBody, setEmailBody] = useState("");
+  const [emailBody, setEmailBody] = useState(initEmailHTML);
   const [subjectBody, setSubjectBody] = useState("");
   const [toEmails, setToEmails] = useState(initToEmails);
   const [ccEmails, setCcEmails] = useState(initCcEmails);
   const [bccEmails, setBccEmails] = useState(initBccEmails);
+  const [quillEditor, setQuillEditor] = useState(null);
+
+  console.log("myApp.js initEmailHTML", initEmailHTML)
 
   /*
   window.getEmailText = function() {
@@ -29,8 +33,17 @@ const MyApp = ({emails,initToEmails,initCcEmails,initBccEmails}) => {
     const toEmailsObj = toEmails.map(email => ({ Email: email }));
     const ccEmailsObj = ccEmails.map(email => ({ Email: email }));
     const bccEmailsObj = bccEmails.map(email => ({ Email: email }));
+    // REVIEW WITH JB. See "https://github.com/zenoamaro/react-quill#the-unprivileged-editor"
+    // const bodyText = ReactQuill.editor.getText(emailBody);
+    // console.log(bodyText);
+    let plainText = ""; // Declare it here
+    if (quillEditor) {
+      console.log("quillEditor declared")
+      plainText = quillEditor.getText();
+    };
     const emailComponents = {
       emailBody,
+      plainText,
       subjectBody,
       toEmails: toEmailsObj,
       ccEmails: ccEmailsObj,
@@ -83,8 +96,17 @@ const MyApp = ({emails,initToEmails,initCcEmails,initBccEmails}) => {
     }
     setEmail(prevEmails => [...prevEmails, newEmail]);
   };
-  
-  ``
+
+  // REVIEW WITH JB: SEE "https://github.com/zenoamaro/react-quill#api-reference"
+  // check out defaultValue which allows for HTML to be passed in 
+
+  window.loadTemplate = (html) => {
+    console.log("templateHTML: ", html)
+    if (quillEditor) {
+      const delta = quillEditor.clipboard.convert(html);
+      quillEditor.setContents(delta, 'silent');
+    }
+  };
   
   
 /*
@@ -104,7 +126,7 @@ const MyApp = ({emails,initToEmails,initCcEmails,initBccEmails}) => {
         <Subject title='' setSubjectBody={setSubjectBody} subjectBody={subjectBody} />
       </div>
       <div id='textDom'>
-        <EmailText emailBody={emailBody} setEmailBody={setEmailBody}/>
+        <EmailText emailBody={emailBody} setEmailBody={setEmailBody} setQuillEditor={setQuillEditor}/>
       </div>
     </div>
   );
