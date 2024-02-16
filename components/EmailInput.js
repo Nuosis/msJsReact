@@ -93,19 +93,6 @@ export default function EmailInput({id,title,unchosenEmails,setUnchosenEmails,ch
   };
   return (
       <div className="flex flex-row items-center gap-2">
-        {/* <label
-          htmlFor="email"
-          className=" mt-1
-                      mb-1
-                      w-9
-                      text-right 
-                      block text-sm 
-                      font-medium 
-                      leading-6 
-                      text-gray-900 "
-        >
-          {`${title}: `}
-        </label> */}
         <div id={`${id}Chips`} className="flex-row w-full mt-1 mb-1">
           <div className="flex flex-wrap">
             {chosenEmails.map((email,i) => (

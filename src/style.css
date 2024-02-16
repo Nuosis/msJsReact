@@ -2,6 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 
+html, body {
+    height: 100%;
+    margin: 0; /* Removes default margin */
+    padding: 0; /* Removes default padding */
+    }
+#root {
+    display: flex; /* Enables flexbox layout */
+    flex-direction: column; /* Stacks children vertically */
+    height: 100%; /* Takes full height of its parent */
+    }
+#dom {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Adjust this based on your layout's needs */
+    margin-bottom: 40px;
+    }
+#textDom {
+    display: flex; /* Enables flexbox layout */
+    flex-direction: column; /* Stacks children vertically */
+    height: 100%; /* Takes full height of its parent */
+    }
+
+.ql-container {
+    height: 100%;
+    max-height: 100%;
+    overflow-y: auto;
+    }   
+
+.ql-editor {
+    overflow-y: auto; /* Enables vertical scrolling if content overflows */
+    }
+    
+
+.ql-font-tinos { font-family: 'Tinos', serif; }
 .ql-font-roboto { font-family: 'Roboto', sans-serif; }
 .ql-font-open-sans { font-family: 'Open Sans', sans-serif; }
 .ql-font-lato { font-family: 'Lato', sans-serif; }
@@ -20,7 +54,12 @@
 .ql-font-droid-serif { font-family: 'Droid Serif', serif; }
 .ql-font-lora { font-family: 'Lora', serif; }
 .ql-font-vollkorn { font-family: 'Vollkorn', serif; }
-.ql-font-tinos { font-family: 'Tinos', serif; }
+
+.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=tinos]::before,
+.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=tinos]::before {
+    content: 'Tinos';
+    font-family: 'Tinos', serif;
+}
 
 .ql-snow .ql-picker.ql-font .ql-picker-label[data-value=roboto]::before,
 .ql-snow .ql-picker.ql-font .ql-picker-item[data-value=roboto]::before {
@@ -130,18 +169,38 @@
     font-family: 'Vollkorn', sans-serif;
 }
 
-.ql-snow .ql-picker.ql-font .ql-picker-label[data-value=tinos]::before,
-.ql-snow .ql-picker.ql-font .ql-picker-item[data-value=tinos]::before {
-    content: 'Tinos';
-    font-family: 'Tinos', serif;
-}
-
 .ql-size-small {
-    font-size: 0.75em;
+    font-size: 1.5em;
+    }
+.ql-size-normal {
+        font-size: 2em;
     }
 .ql-size-large {
-        font-size: 1.5em;
+        font-size: 2.5em;
     }
 .ql-size-huge {
-        font-size: 2.5em;
+        font-size: 3em;
+    }
+
+.send-email-btn {
+    position: fixed; /* Stick to the viewport */
+    bottom: 5; /* Align to the bottom */
+    background-color: #33C3F0; /* Aqua blue color */
+    color: white; /* White text color */
+    padding: 10px 20px; /* Padding around the text */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 16px; /* Font size */
+    transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transition for hover effects */
+    outline: none; /* Remove outline */
+    }
+
+    .send-email-btn:hover {
+        background-color: #30b0e8; /* Slightly darker shade of aqua blue on hover */
+        box-shadow: 0 2px 4px 0 rgba(0,0,0,0.24), 0 4px 5px 0 rgba(0,0,0,0.19); /* Add shadow for depth */
+    }
+
+    .send-email-btn:focus {
+        box-shadow: 0 0 0 2px #fff, 0 0 0 4px #33C3F0; /* Focus outline with aqua blue */
     }

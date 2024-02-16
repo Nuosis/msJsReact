@@ -32,7 +32,7 @@ export default function EmailText({emailBody,setEmailBody, setQuillEditor}) {
             ['bold', 'italic', 'underline','strike', 'blockquote'],
             [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
             ['link', 'image'],
-            ["blockquote", "code-block"],
+            ["code-block"],
         ],
         /*
         clipboard: {
@@ -51,5 +51,13 @@ export default function EmailText({emailBody,setEmailBody, setQuillEditor}) {
 
     };
     console.log('Quill email html', emailBody)
-    return <ReactQuill style={{ height: "65vh" }} theme="snow" className="mt-1 rounded-md" value={emailBody} onChange={setEmailBody} modules={modules} ref={quillRef}/>;
+    return <ReactQuill 
+            style={{ height: "100%", display: "flex",flexDirection: "column" }} 
+            theme="snow" 
+            className="mt-1 rounded-md" 
+            value={emailBody} 
+            onChange={setEmailBody} 
+            modules={modules} 
+            ref={quillRef}
+        />;
 }
